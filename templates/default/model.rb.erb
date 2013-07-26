@@ -1,0 +1,40 @@
+Backup::Model.new(:<%= @name %>, '<%= @opts[:description] %>') do
+  
+  split_into_chunks_of <%= @opts[:split_into_chunks_of] %>
+  compress_with <%= @opts[:compress_with] %>
+	
+	<% @archives.each do |archive_name, archive_opts| %>
+  archive :<%= archive_name %> do |archive|
+		<% archive_opts[:add].each do |archive_add| %>
+    archive.add "<%= archive_add %>"
+		<% end %>
+    archive.tar_options '-h'
+  end
+	<% end %>
+
+	<% @databases.each do |database_key, database_opts| %>
+  <% opts = database_opts.dup %>
+  database <%= opts.delete(:type) %>, :<%= database_key %> do |db|
+		<% opts.each do |key, value| %>
+    db.<%= key %> = <%= value.is_a?(String) ? "'#{value}'" : value %>
+		<% end %>
+  end
+	<% end %>
+	
+	<% @store_with.each do |store_name, store_opts| %>
+  store_with <%= store_name %> do |server|
+		<% store_opts.each do |key, value| %>
+    server.<%= key %> = <%= value.is_a?(String) ? "'#{value}'" : value %>
+		<% end %>
+  end
+	<% end %>
+
+	<% @notifiers.each do |notify_name, notify_opts| %>
+  notify_by <%= notify_name %> do |notify|
+		<% notify_opts.each do |key, value| %>
+    notify.<%= key %> = <%= value.is_a?(String) ? "'#{value}'" : value %>
+		<% end %>
+  end
+	<% end %>
+
+end

@@ -1,0 +1,8 @@
+<%
+	schedule_string  = "every #{@opts[:every]}.#{@opts[:every_type]}"
+	schedule_string += ", :at => '#{@opts[:at]}'" unless @opts[:at].nil?
+%>
+
+<%= schedule_string %> do
+  command "/usr/local/bin/backup perform -t <%= @model_name %>"
+end
