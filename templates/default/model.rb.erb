@@ -28,6 +28,14 @@ Backup::Model.new(:<%= @name %>, '<%= @opts[:description] %>') do
 		<% end %>
   end
 	<% end %>
+	
+	<% @encrypt_with.each do |encrypt_name, encrypt_opts| %>
+  encrypt_with <%= encrypt_name %> do |server|
+		<% encrypt_opts.each do |key, value| %>
+    server.<%= key %> = <%= value.is_a?(String) ? "'#{value}'" : value %>
+		<% end %>
+  end
+	<% end %>
 
 	<% @notifiers.each do |notify_name, notify_opts| %>
   notify_by <%= notify_name %> do |notify|

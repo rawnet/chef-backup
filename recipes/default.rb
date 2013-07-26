@@ -45,6 +45,7 @@ models.each do |model_name, model_opts|
                 "databases" => opts.delete(:databases) || [],
                 "store_with" => opts.delete(:store_with) || [],
                 "notifiers" => opts.delete(:notifiers) || [],
+                "encrypt_with" => opts.delete(:encrypt_with) || [],
                 "opts"  => opts
               })
   end

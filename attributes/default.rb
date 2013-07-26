@@ -13,6 +13,7 @@ default[:backup][:model_defaults] = {
   :archives => {},
   :databases => {},
   :store_with => {},
+  :encrpyt_with => {},
   :notifies => {},
   :schedule => {}
 }
