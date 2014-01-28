@@ -14,7 +14,7 @@ Backup::Model.new(:<%= @name %>, '<%= @opts[:description] %>') do
 
 	<% @databases.each do |database_key, database_opts| %>
   <% opts = database_opts.dup %>
-  database <%= opts.delete(:type) %>, :<%= database_key %> do |db|
+  database <%= opts.delete(:type) %>, :<%= database_key.gsub('-', '_') %> do |db|
 		<% opts.each do |key, value| %>
     db.<%= key %> = <%= value.is_a?(String) ? "'#{value}'" : value %>
 		<% end %>
