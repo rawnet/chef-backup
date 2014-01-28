@@ -12,7 +12,10 @@ ohai "reload" do
   action :reload
 end
 
-gem_package "backup"
+gem_package "backup" do
+  version '3.7'
+end
+
 gem_package "whenever"
 
 %w(Backup Backup/models Backup/schedule).each do |dir|
