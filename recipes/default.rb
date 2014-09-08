@@ -36,7 +36,7 @@ end
 
 models.each do |model_name, model_opts|
 
-  opts = model_opts.dup
+  opts = model_opts.dup.symbolize_keys
 
   template "/home/#{backup_user}/Backup/models/#{model_name}.rb" do
     source "model.rb.erb"
@@ -59,7 +59,7 @@ models.each do |model_name, model_opts|
     mode 00755
     variables({
                 "model_name" => model_name,
-                "opts"  => model_opts[:schedule]
+                "opts"  => opts[:schedule]
               })
   end
 
